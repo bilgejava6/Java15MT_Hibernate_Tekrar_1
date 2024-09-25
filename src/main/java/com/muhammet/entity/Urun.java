@@ -20,6 +20,21 @@ public class Urun {
     Long id;
     String ad;
     Double fiyat;
+    /**
+     * 1.Durum
+     *
+     * 2.Durum
+     *
+     */
     @OneToMany(cascade = CascadeType.PERSIST)
+    @JoinTable(
+            name = "urun_ile_resim_baglanti_tablosu",
+            joinColumns = @JoinColumn(name = "urunun_idsi"),
+            inverseJoinColumns = @JoinColumn(name = "resim_in_idsi")
+    )
     List<Resim> resimler;
+
+    @OneToMany(mappedBy = "urun")
+//    @JoinColumn(name = "urun_id")
+    List<Ozellik> ozellikler;
 }
