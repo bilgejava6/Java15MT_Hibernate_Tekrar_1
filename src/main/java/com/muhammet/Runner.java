@@ -1,6 +1,7 @@
 package com.muhammet;
 
 import com.muhammet.entity.Urun;
+import com.muhammet.repository.Sorgular;
 import com.muhammet.utility.UrunImpl;
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.EntityManagerFactory;
@@ -13,10 +14,14 @@ import java.util.List;
 
 public class Runner {
     public static void main(String[] args) {
+       new Sorgular().selectManyColumn();
+    }
+
+    private void Test(){
         /**
          * gerekli kayıtları oluşması için başlangıç komutları
          */
-      //  new UrunImpl().createUrun();
+        //  new UrunImpl().createUrun();
         EntityManagerFactory emf = Persistence.createEntityManagerFactory("URUN");
         EntityManager em = emf.createEntityManager();
         /**
@@ -38,7 +43,7 @@ public class Runner {
             System.out.println("id....: "+urun.getId());
             System.out.println("ad....: "+urun.getAd());
             System.out.println("fiyat....: "+urun.getFiyat());
-           // System.out.println("resimler....: "+urun.getResimler());
+            // System.out.println("resimler....: "+urun.getResimler());
         });
         em.close();
         emf.close();
