@@ -26,7 +26,7 @@ public class Urun {
      * 2.Durum
      *
      */
-    @OneToMany(cascade = CascadeType.PERSIST)
+    @OneToMany(cascade = CascadeType.PERSIST, fetch = FetchType.LAZY)
     @JoinTable(
             name = "urun_ile_resim_baglanti_tablosu",
             joinColumns = @JoinColumn(name = "urunun_idsi"),
