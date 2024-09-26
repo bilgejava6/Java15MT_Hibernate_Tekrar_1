@@ -4,6 +4,7 @@ import com.muhammet.entity.Urun;
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.EntityManagerFactory;
 import jakarta.persistence.Persistence;
+import jakarta.persistence.Tuple;
 import jakarta.persistence.criteria.CriteriaBuilder;
 import jakarta.persistence.criteria.CriteriaQuery;
 import jakarta.persistence.criteria.Path;
@@ -64,7 +65,37 @@ public class Sorgular {
             }
             System.out.println();
         });
-
     }
+
+    public void usingTuple(){
+        CriteriaQuery<Tuple> criteriaQuery = criteriaBuilder.createQuery(Tuple.class);
+        Root<Urun> root = criteriaQuery.from(Urun.class);
+        Path<Long> idPath = root.get("id");
+        Path<String> adPath = root.get("ad");
+//        criteriaQuery.select(criteriaBuilder.array(idPath,adPath));
+        criteriaQuery.multiselect(idPath,adPath);
+        List<Tuple> urunListesiTuple = em.createQuery(criteriaQuery).getResultList();
+
+        urunListesiTuple.forEach(ut->{
+            System.out.println("id....: "+ ut.get(0));
+            System.out.println("ad....: "+ ut.get(adPath));
+            System.out.println("-------------------------");
+        });
+    }
+
+    /**
+     * select * from tblurun where ad like %a%
+     */
+    public void usingWhere(){
+        CriteriaQuery<Urun> criteriaQuery = criteriaBuilder.createQuery(Urun.class);
+        Root<Urun> root = criteriaQuery.from(Urun.class);
+        criteriaQuery.select(root);
+        criteriaQuery.where(criteriaBuilder.like(root.get("ad"),"A%"));
+        List<Urun> urunList = em.createQuery(criteriaQuery).getResultList();
+        urunList.forEach(u->{
+            System.out.println(u.getId()+" - "+ u.getAd()+ " - "+ u.getFiyat());
+        });
+    }
+
 
 }

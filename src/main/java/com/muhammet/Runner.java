@@ -14,7 +14,7 @@ import java.util.List;
 
 public class Runner {
     public static void main(String[] args) {
-       new Sorgular().selectManyColumn();
+       new Sorgular().usingWhere();
     }
 
     private void Test(){
